@@ -78,3 +78,82 @@ follow_mouse = 2
 
 ##### **Install Fonts**
 [Download](https://www.jetbrains.com/lp/mono/) JetBrains Mono and follow these [instructions](https://www.jetbrains.com/lp/mono/#how-to-install).
+
+##### **Keybind for multiple firefox profiles:**
+Add the following keybinds to the keybinds.conf in .config/hypr/keybinds.conf
+```
+bind = $mainMod, F1, exec, $browser -P "work" # launch web browser
+bind = $mainMod, F2, exec, $browser -P "prod" # launch web browser
+bind = $mainMod, F3, exec, $browser -P "elusive" # launch web browser
+```
+
+
+##### **Adjust Fullscreen setting so it keeps the bar**
+```
+# In keybinds.conf inside .config/hypr
+bind = Alt, Return, fullscreen,1 # toggle the window between focus and fullscreen
+```
+
+##### **Setup pCloud for drive**
+```
+yay -S pcloud-drive
+```
+
+
+##### **Mount Another Drive Automatically**
+1 - Run the command below to list all of the blocks of storage along with their file types (-f)
+```
+lsblk -f
+```
+
+2 - Create  a mount point
+```
+sudo mkdir /mnt/data
+```
+
+3 - Update the fstab in etc
+```
+sudo nano /etc/fstab
+```
+
+4 - Add the following line at the bottom of the fstab making sure to update the UUID and file_sys from the step 1
+```
+UUID=your_UUID /mnt/data file_sys defaults 0 2
+```
+
+---
+#### Extra Stuff
+##### Format a USB Drive
+```
+# identify
+lsblk 
+
+# lets say after identification its sdb and partition 1
+sudo umout /dev/sdb1
+sudo fdisk /dev/sdb
+type d to delete any existing partitions.
+
+// Then type n to create a new partition. Choose partition number 1 and accept the defaults for the first two prompts.
+
+// Finally, type w to write the changes to the disk.
+```
+
+
+sudo mkfs.ntfs --label <USBNAME> /dev/sdb1
+
+
+//Update opacity in windowrules.conf
+
+
+
+// Download Yay (package manager) avoids having to clone each repo then makepkg
+
+sudo pacman -Syu
+sudo pacman -S git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -sri
+
+// install docker
+sudo pacman -S gnome-terminal
+https://docs.docker.com/desktop/install/archlinux/
